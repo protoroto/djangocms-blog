@@ -10,6 +10,7 @@ from django.urls import reverse
 from django.utils.timezone import now
 from django.utils.translation import get_language
 from django.views.generic import DetailView, ListView
+from meta.views import MetadataMixin
 from parler.views import TranslatableSlugMixin, ViewUrlMixin
 
 from .models import BlogCategory, Post
@@ -51,13 +52,19 @@ class BaseBlogView(AppConfigMixin, ViewUrlMixin):
         return os.path.join(template_path, self.base_template_name)
 
 
-class BaseBlogListView(BaseBlogView):
+class BaseBlogListView(MetadataMixin, BaseBlogView):
     context_object_name = "post_list"
     base_template_name = "post_list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["TRUNCWORDS_COUNT"] = get_setting("POSTS_LIST_TRUNCWORDS_COUNT")
+        try:
+            from djangocms_page_meta.utils import get_page_meta
+            context["meta"] = get_page_meta(self.request.current_page, get_language())
+            context["meta"].url = self.request.build_absolute_uri()
+        except ImportError:  # pragma: no cover
+            pass
         return context
 
     def get_paginate_by(self, queryset):
@@ -188,4 +195,5 @@ class CategoryEntriesView(BaseBlogListView, ListView):
         kwargs["category"] = self.category
         context = super().get_context_data(**kwargs)
         context["meta"] = self.category.as_meta()
+        context["meta"].url = self.request.build_absolute_uri()
         return context
