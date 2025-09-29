@@ -336,7 +336,9 @@ class ViewTest(BaseTest):
             view_obj.object_list = qs
             context = view_obj.get_context_data(object_list=view_obj.object_list)
             self.assertTrue(context["category"])
+            self.assertTrue(context["object"])
             self.assertEqual(context["category"], self.category_1)
+            self.assertEqual(context["object"], self.category_1)
             self.assertTrue(context["is_paginated"])
             self.assertEqual(list(context["post_list"]), [posts[0]])
             self.assertEqual(context["paginator"].count, 3)

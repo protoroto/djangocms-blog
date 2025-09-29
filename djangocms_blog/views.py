@@ -185,7 +185,7 @@ class CategoryEntriesView(BaseBlogListView, ListView):
         return self.optimize(qs)
 
     def get_context_data(self, **kwargs):
-        kwargs["category"] = self.category
+        kwargs["category"] = kwargs["object"] = self.category
         context = super().get_context_data(**kwargs)
         context["meta"] = self.category.as_meta()
         return context
