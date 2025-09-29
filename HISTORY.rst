@@ -6,6 +6,15 @@ History
 
 .. towncrier release notes start
 
+2.0.8 (2025-09-29)
+==================
+
+Features
+--------
+
+- Add object in CategoryEntriesView context (#838)
+
+
 2.0.7 (2024-01-16)
 ==================
 
