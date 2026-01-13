@@ -182,8 +182,16 @@ class PluginTest(BaseTest):
         self.assertTrue(rendered.find(posts[0].get_absolute_url()) > -1)
         self.assertTrue(rendered.find(posts[1].get_absolute_url()) > -1)
         plugin.posts.remove(posts[1])
-
         rendered = self.render_plugin(pages[0], "en", plugin, edit=True)
+        self.assertTrue(rendered.find(posts[0].get_absolute_url()) > -1)
+        self.assertFalse(rendered.find(posts[1].get_absolute_url()) > -1)
+        posts[1].publish = False
+        posts[1].save()
+        plugin.posts.add(posts[1])
+        rendered = self.render_plugin(pages[0], "en", plugin, edit=True)
+        self.assertTrue(rendered.find(posts[0].get_absolute_url()) > -1)
+        self.assertTrue(rendered.find(posts[1].get_absolute_url()) > -1)
+        rendered = self.render_plugin(pages[0], "en", plugin, edit=False)
         self.assertTrue(rendered.find(posts[0].get_absolute_url()) > -1)
         self.assertFalse(rendered.find(posts[1].get_absolute_url()) > -1)
 

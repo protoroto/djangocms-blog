@@ -102,7 +102,7 @@ class BlogFeaturedPostsPlugin(BlogPlugin):
     def render(self, context, instance, placeholder):
         """Render the plugin."""
         context = super().render(context, instance, placeholder)
-        context["posts_list"] = instance.get_posts(context["request"])
+        context["posts_list"] = instance.get_posts(context["request"], published_only=False)
         context["TRUNCWORDS_COUNT"] = get_setting("POSTS_LIST_TRUNCWORDS_COUNT")
         return context
 
