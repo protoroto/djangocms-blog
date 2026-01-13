@@ -6,6 +6,21 @@ History
 
 .. towncrier release notes start
 
+2.0.9 (2026-01-13)
+==================
+
+Features
+--------
+
+- Make BlogFeaturedPostsPlugin show unpublished posts if in edit mode (#850)
+
+
+Bugfixes
+--------
+
+- Catch Resolver404 when blog menu is rendered in 404 pages (#793)
+
+
 2.0.8 (2025-09-29)
 ==================
 
