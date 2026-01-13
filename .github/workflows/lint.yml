@@ -35,7 +35,8 @@ jobs:
           ${{ runner.os }}-lint-${{ matrix.toxenv }}-
     - name: Install dependencies
       run: |
-        sudo apt-get install libcairo2-dev
+        sudo apt update
+        sudo apt install libcairo2-dev
         python -m pip install --upgrade pip setuptools tox>4
     - name: Test with tox
       if: ${{ matrix.toxenv != 'towncrier' || (!contains(github.event.head_commit.message, '[pre-commit.ci]') && !contains(github.event.pull_request.body, 'pre-commit.ci start')) }}
