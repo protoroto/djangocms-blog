@@ -6,6 +6,15 @@ History
 
 .. towncrier release notes start
 
+2.0.10 (2026-07-06)
+===================
+
+Features
+--------
+
+- Add categories and sites to autocomplete_fields (#869)
+
+
 2.0.9 (2026-01-13)
 ==================
 
